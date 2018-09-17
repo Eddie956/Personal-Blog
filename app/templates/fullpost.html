@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-10 col-xs-offset-1" id="article">
+            <h1>{{post.title}}</h1>
+            <hr>
+            <br>
+            <p>{{post.post}}</p>
+            {{post.timeposted}}
+            <hr>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-6 col-xs-offset-3">
+            {% import 'bootstrap/wtf.html' as wtf %}
+            {{wtf.quick_form(comment)}}
+            <br>
+            <h3>COMMENTS</h3>
+            <hr>
+            {% for comment in postcomments %}
+            <i><sub>{{comment.commenter}} says:</sub></i>
+            <br> {{comment.comment}}
+            <hr>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

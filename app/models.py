@@ -1,13 +1,9 @@
-import os
-import jwt
-from . import db, login_manager
+from flask_login import UserMixin, current_user, login_manager
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import UserMixin
+from . import login_manager
 from datetime import datetime
-from time import time
-from datafreeze import freeze
-
-
+from . import db, admin
+from flask_admin.contrib.sqla import ModelView
 
 
 @login_manager.user_loader
@@ -16,110 +12,112 @@ def load_user(user_id):
 
 
 class User(UserMixin, db.Model):
+    """ 
+    class modelling the users by handling the login
+    """
+
     __tablename__ = 'users'
+
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(48), unique=True, index=True)
-    email = db.Column(db.String(48), unique=True, index=True)
-    hash_pass = db.Column(db.String(255))
+    name = db.Column(db.String)
+    username = db.Column(db.String, unique=True, index=True)
+    email = db.Column(db.String, unique=True, index=True)
+
+    posts = db.relationship('Post', backref='user', lazy='dynamic')
+    is_admin = db.Column(db.Boolean)
+    comments = db.relationship('Comment', backref='user', lazy='dynamic')
+
+    pass_secure = db.Column(db.String)
+
 
     @property
     def password(self):
-        raise AttributeError("You cannot read password attribute")
-
+        raise AttributeError('You cannot read the password attribute')
 
     @password.setter
     def password(self, password):
-        self.hash_pass = generate_password_hash(password)
-
-    def set_password(self, password):
-        self.hash_pass = generate_password_hash(password)
+        self.pass_secure = generate_password_hash(password)
 
     def verify_password(self, password):
-        return check_password_hash(self.hash_pass, password)
+        return check_password_hash(self.pass_secure, password)
 
-    def get_reset_password_token(self, expires_in=1800):
-        return jwt.encode({'reset_password': self.id, 'exp': time()+expires_in}, os.environ.get('SECRET_KEY'), algorithm='HS256').decode('utf-8')
-
-    @staticmethod
-    def verify_reset_password(token):
-        try:
-            id = jwt.decode(token, os.environ.get('SECRET_KEY'),
-                            algorithms=['HS256'])['reset_password']
-        except:
-            return
-        return User.query.get(id)
+    def __repr__(self):
+        return f'User{self.username}'
 
 
-class Blog(db.Model):
-    __tablename__ = 'blogs'
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String())
-    blog_content = db.Column(db.String())
-    date = db.Column(db.DateTime, nullable=False,default=datetime.utcnow)
-    blog_pic = db.Column(db.String(255))
-    photo_url = db.Column(db.String(500))
+class Post(UserMixin, db.Model):
+    """ 
+    class modelling the posts
+    """
 
-    comment = db.relationship('Comment', backref='blog', lazy='dynamic')
-    photo = db.relationship('Photo', backref='blog', lazy='dynamic')
-
-    def save_blog(self):
-        db.session.add(self)
-        db.session.commit()
-
-    @classmethod
-    def get_all_blogs(cls):
-        blogs = Blog.query.order_by('-id').all()
-        return blogs
-
-    @classmethod
-    def get_single_blog(cls, id):
-        blog = Blog.query.filter_by(id=id).first()
-        return blog
-
-
-class Comment(db.Model):
-    __tablename__ = 'comments'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String())
-    email = db.Column(db.String())
-    comment_content = db.Column(db.String())
-    date_comment = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    blog_id = db.Column(db.Integer, db.ForeignKey('blogs.id'))
-
-    def save_comment(self):
-        db.session.add(self)
-        db.session.commit()
-
-    @classmethod
-    def get_blog_comments(cls, id):
-        comments = Comment.query.filter_by(blog_id=id).order_by('-id').all()
-        return comments
-
-    @classmethod
-    def get_single_comment(cls, id_blog, id):
-        comment = Comment.query.filter_by(blog_id=id_blog, id=id).first()
-        return comment
-
-
-class Email(db.Model):
-    __tablename__ = 'emails'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String())
-    email_data = db.Column(db.String(255))
-
-    def save_email(self):
-        db.session.add(self)
-        db.session.commit()
-
-    @classmethod
-    def send_single_email(cls, id):
-        email = Email.query.filter_by(id=id).first()
-        return email
-
-
-class PhotoProfile(db.Model):
-    __tablename__ = 'profile_photos'
+    __tablename__ = 'posts'
 
     id = db.Column(db.Integer, primary_key=True)
-    pic_path = db.Column(db.String())
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    title = db.Column(db.String)
+    post = db.Column(db.String)
+    image_name = db.Column(db.String)
+    image_url = db.Column(db.String)
+    timeposted = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    comments = db.relationship('Comment', backref='post', lazy='dynamic')
+
+    def __repr__(self):
+        return f'Post{self.post}'
+
+
+
+class Role(UserMixin, db.Model):
+    """ 
+    class modelling the role of each user
+    """
+
+    __tablename__ = "roles"
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String)
+
+    def __repr__(self):
+        return f'Post{self.name}'
+
+
+
+class Comment(UserMixin, db.Model):
+    """ 
+    User comment model for each post
+    """
+
+    __tablename__ = "comments"
+
+    id = db.Column(db.Integer, primary_key=True)
+    comment = db.Column(db.String)
+    commenter = db.Column(db.String)
+
+    users_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
+
+    def __repr__(self):
+        return f'Post{self.comment}'
+
+
+class Subscribers(UserMixin, db.Model):
+
+    __tablename__ = "subscribers"
+
+    # add columns
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String, unique=True)
+
+    def __repr__(self):
+        return f'Subscribers{self.email}'
+
+
+class MyModelView(ModelView):
+    def is_accessible(self):
+        return False
+
+
+admin.add_view(ModelView(User, db.session))
+admin.add_view(ModelView(Post, db.session))
+admin.add_view(ModelView(Comment, db.session))
+admin.add_view(ModelView(Subscribers, db.session))
