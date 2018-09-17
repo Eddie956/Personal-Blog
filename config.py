@@ -56,10 +56,12 @@ class DevConfig(Config):
         configuration settings
     """
     DATABASE_PASSWORD = os.environ.get("DATABASE_PASSWORD")
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://a:mango@localhost/blog'
     DEBUG = True
 
 
 class TestConfig(Config):
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
     # pass
 
 
