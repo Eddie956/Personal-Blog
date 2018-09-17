@@ -33,6 +33,7 @@ MarkupSafe==1.0
 mccabe==0.6.1
 normality==0.6.1
 psycopg2==2.7.5
+psycopg2-binary==2.7.5
 pycodestyle==2.4.0
 PyJWT==1.4.2
 pylint==2.1.1
