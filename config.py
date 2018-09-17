@@ -44,8 +44,8 @@ class ProdConfig(Config):
         configuration settings
     """
     # pass
-    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
-    DEBUG = True
+    SQLALCHEMY_DATABASE_URI = os.environ.get('postgresql+psycopg2://a:mango@localhost/blog')
+    # DEBUG = True
 
 
 class DevConfig(Config):
@@ -56,12 +56,12 @@ class DevConfig(Config):
         configuration settings
     """
     DATABASE_PASSWORD = os.environ.get("DATABASE_PASSWORD")
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://a:mango@localhost/blog'
+    SQLALCHEMY_DATABASE_URI = os.environ.get('postgresql+psycopg2://a:mango@localhost/blog')
     DEBUG = True
 
 
 class TestConfig(Config):
-    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+    SQLALCHEMY_DATABASE_URI = os.environ.get('postgresql+psycopg2://a:mango@localhost/blog')
     # pass
 
 
