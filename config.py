@@ -39,16 +39,16 @@ class ProdConfig(Config):
 
 class DevConfig(Config):
    
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://a:mango@localhost/blog'
-    DEBUG = True
+    # SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://a:mango@localhost/blog'
+    # DEBUG = True
 
-
+    pass
 
 class TestConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://a:mango@localhost/blog'
+    # SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://a:mango@localhost/blog'
     
-    DEBUG = True
-
+    # DEBUG = True
+    pass
 
 
 config_options = {
