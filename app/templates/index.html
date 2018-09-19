@@ -2,47 +2,64 @@
 {% import 'bootstrap/wtf.html' as wtf %}
 
 {% block content %}
-<div class="header">
-    <div class="intro">
-        <h1 class="display-4">Hey There {{current_user.username}}!..</h1>
-        {% if current_user.is_admin %}
-        <p>Welcome to Blog On!... You can now start posting your articles here!...</p>
-        <button><a href="{{url_for('main.post')}}">Post article</a> </button>
-        {% else %}
-        <p>Welcome! You can now Read and share articles!..</p>
-        <div class="subscribers">
-            {{wtf.quick_form(subscribers)}}
-            {% for message in get_flashed_messages() %}
-            <div class="alert alert-danger">
-                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                {{ message }}
-            </div>
-            {% endfor %}
-        </div>
-        {% endif %}
-    </div>
-</div>
 
-<div class="container-fluid">
-    <div class="row posts">
-        {% for post in posts %}
-        <div class="col-md-5 article">
-            <div class="wrap">
-                <h4>
-                    <a href="{{url_for('main.fullpost',id=post.id)}}">{{post.title}}</a>
-                </h4>
-                <hr>
-                <br>
-                <i><sub>{{post.timeposted}}</sub></i>
-                <br>
-                {{post.post | truncate(250)}}
-                <br>
-                <button>
-                    <a href="{{url_for('main.fullpost',id=post.id)}}">Read article</a>
-                </button>
+
+<section class="pt-5 pb-5 mt-0 align-items-center d-flex bg-dark" style="height:100vh; background-size: cover; background-image: url(https://images.unsplash.com/photo-1525130413817-d45c1d127c42?ixlib=rb-0.3.5&s=c3d0603820b595592d80f5a239938c67&auto=format&fit=crop&w=1500&q=80);">
+
+    <div class="container-fluid">
+        <div class="row  justify-content-center align-items-center d-flex text-center h-100">
+            <div class="col-12 col-md-8  h-50 ">
+                <h1 class="display-2  text-light mb-2 mt-5"><strong>Welcome {{current_user.username}} to Article Blog
+                    </strong> </h1>
+                {% if current_user.is_admin %}
+                <p class="lead  text-light mb-5">You can now post articles</p>
+                <button><a href="{{url_for('main.post')}}">Post article</a> </button>
+                {% else %}
+                <p class="lead  text-light mb-5" style="font-size:2em;">Please subscribe to post and read articles</p>
+                <div class="subscribers" style="font-size:2em;color:red;">
+                    {{wtf.quick_form(subscribers)}}
+                    {% for message in get_flashed_messages() %}
+                    <div class="alert alert-danger">
+                        <button type="button" style="background-color:red;" class="btn danger btn-round text-light btn-lg btn-rised"
+                            data-dismiss="alert">&times;</button>
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="btn-container-wrapper p-relative d-block  zindex-1">
+                    <a class="btn btn-link btn-lg   mt-md-3 mb-4 scroll align-self-center text-light" href="http://bootstraptor.com">
+                        <i class="fa fa-angle-down fa-4x text-light"></i>
+                    </a>
+                </div>
+                {% endif %}
+                <div class="container-fluid">
+                    <div class="row posts">
+                        {% for post in posts %}
+                        <div class="col-md-5 article">
+                            <div class="wrap">
+                                <h4>
+                                    <a href="{{url_for('main.fullpost',id=post.id)}}">{{post.title}}</a>
+                                </h4>
+                                <hr>
+                                <br>
+                                <i><sub>{{post.timeposted}}</sub></i>
+                                <br>
+                                {{post.post }}
+                                <br>
+                                <button>
+                                    <a href="{{url_for('main.fullpost',id=post.id)}}">Read article</a>
+                                </button>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
+
         </div>
-        {% endfor %}
+
     </div>
-</div>
+</section>
+
 {% endblock %}

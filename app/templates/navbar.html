@@ -1,35 +1,26 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand navbar-dark bg-dark">
     {% if current_user.is_admin %}
-    <a class="navbar-brand" href="{{url_for('main.index')}}">{{current_user}} BLOG ON</a>
-    {% else %}
-    <a class="navbar-brand" href="{{url_for('main.index')}}">BLOG ON</a>
+    <a href="{{url_for('main.index')}}">{{current_user}} HOME </a>
     {% endif %}
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText"
-        aria-expanded="false" aria-label="Toggle navigation">
+    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarText">
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="{{url_for('main.index')}}">Home
-                    <span class="sr-only">(current)</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#about">About</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/admin">Admin</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{url_for('auth.logout')}}">Sign Out</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{url_for('auth.login')}}">Sign In</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{url_for('main.post')}}">Post Article</a>
-            </li>
+            <a class="nav-link" href="#/about">About</a>
+            <a class="nav-link" href="{{url_for('auth.logout')}}">Admin</a>
+            <a class="nav-link" href="{{url_for('main.post')}}">Post Article</a>
+
+            <a href="#" class="nav-link dropdown-toggle active" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false" style="background-color:blue;">More</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{{url_for('auth.logout')}}" style="background-color:blue;">Sign Out</a>
+                <a class="dropdown-item" href="{{url_for('auth.login')}}" style="background-color:blue;">Sign In</a>
+            </div>
         </ul>
+
+
     </div>
 </nav>

@@ -1,29 +1,32 @@
 {% extends 'base.html' %}
 {% block content %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
 
 <div class="container">
     <div class="row">
         <div class="col-xs-10 col-xs-offset-1" id="article">
             <h1>{{post.title}}</h1>
-            <hr>
+            <br>
             <br>
             <p>{{post.post}}</p>
             {{post.timeposted}}
-            <hr>
+            <br>
         </div>
     </div>
 </div>
-
-<div class="container">
-    <div class="row">
-        <div class="col-xs-6 col-xs-offset-3">
-            {% import 'bootstrap/wtf.html' as wtf %}
+<div class='container'>
+    <div class="media comment-box">
+        <div class="media-left">
+            <a href="#">
+                <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+            </a>
+        </div>
+        <div class="media-body">
             {{wtf.quick_form(comment)}}
-            <br>
-            <h3>COMMENTS</h3>
-            <hr>
-            {% for comment in postcomments %}
-            <i><sub>{{comment.commenter}} says:</sub></i>
+
+            <h4 class="media-heading">Comments</h4>
+            {% for comment in postcomments %} <i><sub>{{comment.commenter}} says:</sub></i>
             <br> {{comment.comment}}
             <hr>
             {% endfor %}

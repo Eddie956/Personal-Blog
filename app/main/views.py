@@ -68,9 +68,7 @@ def post():
         db.session.add(post)
         db.session.commit()
         return redirect(url_for('main.post'))
-    # except:
-    #     flash("Sorry you can NOT post more than 225 characters for now. We are aware of this situation and are currently working on this.")
-    #     return redirect(url_for('main.post'))
+    
 
     return render_template('post.html', Post=Blog, title=title, posts=all, comment=Comments, allcomments=allcomments)
 

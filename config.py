@@ -1,6 +1,5 @@
 import os
 
-# Class-based application configuration
 
 
 class Config:
@@ -35,12 +34,13 @@ class Config:
 class ProdConfig(Config):
     
     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
-    DEBUG = True
+    DEBUG = False
 
 
 class DevConfig(Config):
    
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://a:mango@localhost/blog'
+    DEBUG = True
 
 
 

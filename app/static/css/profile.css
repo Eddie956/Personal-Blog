@@ -1,0 +1,31 @@
+@import url('http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css');
+[href="#one"]:focus img {
+    border: 5px solid green;
+
+}
+
+[href="#two"]:focus img {
+    border: 5px solid blue;
+
+}
+
+[href="#three"]:focus img {
+    border: 5px solid red;
+
+}
+
+a:focus img {
+    transition: all 500ms ease;
+}
+
+#one.in {
+    border: 5px solid green;
+}
+
+#two.in {
+    border: 5px solid blue;
+}
+
+#three.in {
+    border: 5px solid red;
+}

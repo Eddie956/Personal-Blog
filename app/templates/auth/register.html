@@ -1,20 +1,35 @@
 {% extends 'base.html' %}
 {% import 'bootstrap/wtf.html' as wtf %}
-{% block styles %}
-{{ super() }}
-<link rel="stylesheet" href="{{url_for('static',filename='CSS/register.css')}}">
-{% endblock %}
 {% block content %}
-<div class="container-fluid">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-6 col-xs-offset-3" id="form">
-                {{wtf.quick_form(form)}}
+<body>
+<div class="container">
+    <header class="heading"> Registration-Form</header>
+    <hr>
+    <hr>
+    <div class="row">
+        <div class="col-xs-6 col-xs-offset-3" id="form">
+            {{wtf.quick_form(form)}}
 
-                <h5><a href="{{url_for('auth.login')}}">Do you already have an Account?Then just Log in </a> </h5>
+            <h5><a href="{{url_for('auth.login')}}">If you have an acount then login!! </a> </h5>
+        </div>
+
+        <div class="col-xs-6">
+            <div class="row">
+                <div class="col-xs-4 ">
+                    <label class="gender">Gender:</label>
+                </div>
+
+                <div class="col-xs-4 male">
+                    <input type="radio" name="gender" id="gender" value="boy">Male>
+                </div>
+
+                <div class="col-xs-4 female">
+                    <input type="radio" name="gender" id="gender" value="girl">Female>
+                </div>
             </div>
         </div>
     </div>
 </div>
+</body>
 
 {% endblock %}

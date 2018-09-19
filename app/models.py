@@ -27,8 +27,7 @@ class User(UserMixin, db.Model):
     is_admin = db.Column(db.Boolean)
     comments = db.relationship('Comment', backref='user', lazy='dynamic')
 
-    pass_secure = db.Column(db.String)
-
+    password_hash = db.Column(db.String)
 
     @property
     def password(self):
@@ -36,10 +35,10 @@ class User(UserMixin, db.Model):
 
     @password.setter
     def password(self, password):
-        self.pass_secure = generate_password_hash(password)
+        self.password_hash = generate_password_hash(password)
 
     def verify_password(self, password):
-        return check_password_hash(self.pass_secure, password)
+        return check_password_hash(self.password_hash, password)
 
     def __repr__(self):
         return f'User{self.username}'
@@ -66,7 +65,6 @@ class Post(UserMixin, db.Model):
         return f'Post{self.post}'
 
 
-
 class Role(UserMixin, db.Model):
     """ 
     class modelling the role of each user
@@ -79,7 +77,6 @@ class Role(UserMixin, db.Model):
 
     def __repr__(self):
         return f'Post{self.name}'
-
 
 
 class Comment(UserMixin, db.Model):
@@ -103,8 +100,6 @@ class Comment(UserMixin, db.Model):
 class Subscribers(UserMixin, db.Model):
 
     __tablename__ = "subscribers"
-
-    # add columns
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String, unique=True)
 

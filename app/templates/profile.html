@@ -1,48 +1,59 @@
 {% extends 'base.html' %}
 {% import 'bootstrap/wtf.html' as wtf %}
-<!-- mistariz -->
 
 <section class="content-section" id="mistariz">
     <div class="container">
         <div class="content-section-heading text-center">
-            <h1 class="text-secondary mb-0">MISTARIZ</h1>
-            <h2 class="mb-5">Food For Thought</h2>
+            <h1 class="text-secondary mb-0">art</h1>
+            <h2 class="mb-5">gertzsewa</h2>
         </div>
-        <div class="row no-gutters">
-            <div class="col-lg-6">
-                <a class="mistariz-item" href="#">
-                    <span class="caption">
-                        <span class="caption-content">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="well">
+                        <a data-toggle="collapse" href="#one" aria-expanded="true" aria-controls="one">
+                            <img src="../static/images/nature.jpeg" alt="pic_1" class="img-rounded active">
+
+                        </a>
+                    </div>
+                    <div class="well">
+                        <a data-toggle="collapse" href="#two" aria-expanded="true" aria-controls="two">
+                            <img src="../static/images/nature.jpeg"" alt=" pic_2" class="img-rounded">
+
+                        </a>
+                    </div>
+                    <div class="well">
+                        <a data-toggle="collapse" href="#three" aria-expanded="true" aria-controls="three">
+                            <img src="../static/images/nature.jpeg" alt="pic_2" class="img-rounded">
+
+                        </a>
+                    </div>
+
+                </div>
+                <div class="col-md-7 col-md-offset-1">
+                    <div id="one" class="panel-collapse collapse in " role="tabpanel" aria-labelledby="one">
+                        <div class="panel-body">
                             <h2>Francis Beaumont</h2>
                             <p class="mb-0">Nature too unkind; That made no medicine for a troubled mind</p>
-                        </span>
-                    </span>
-                    <img class="img-fluid" src="../static/images/nature.jpeg" alt="">
-                </a>
-            </div>
-            <div class="col-lg-6">
-                <a class="mistariz-item" href="#">
-                    <span class="caption">
-                        <span class="caption-content">
+                        </div>
+                    </div>
+                    <div id="two" class="panel-collapse collapse " role="tabpanel" aria-labelledby="two">
+                        <div class="panel-body">
                             <h2>Bob Marley - Redemption </h2>
                             <p class="mb-0">Emancipate yourselves from mental slavery,None but ourselves can free our
                                 minds</p>
-                        </span>
-                    </span>
-                    <img class="img-fluid" src="../static/images/bob.jpeg" alt="">
-                </a>
-            </div>
-            <div class="col-lg-6">
-                <a class="mistariz-item" href="#">
-                    <span class="caption">
-                        <span class="caption-content">
+                        </div>
+                    </div>
+                    <div id="three" class="panel-collapse collapse " role="tabpanel" aria-labelledby="two">
+                        <div class="panel-body">
                             <h2>Mama's love</h2>
                             <p class="mb-0">Be like a duck.On the surface cool and composed, But underneath paddling
                                 like hell.</p>
-                        </span>
-                    </span>
-                    <img class="img-fluid" src="../static/images/duck.jpeg" alt="">
-                </a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+        </div>
+</section>

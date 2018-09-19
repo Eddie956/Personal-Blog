@@ -1,0 +1,82 @@
+@import url('http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css');
+
+.post {
+    position: relative;
+    width: 92vw;
+    height: auto;
+    margin: auto;
+    margin-bottom: 1rem;
+    background-color: #fff;
+    color: #000;
+    border-radius: 5px;
+    margin-bottom: 3rem;
+}
+
+.post .caption {
+    position: relative;
+    height: inherit;
+    background-color: inherit;
+    padding: 10px;
+}
+
+.post .content {
+    position: relative;
+    height: inherit;
+    padding: 10px;
+}
+
+.post .content .img {
+    width: 100%;
+    height: auto;
+}
+
+.post .author {
+    position: relative;
+    margin-bottom: 3rem;
+}
+
+.post .author .avatar {
+    position: relative;
+    float: left;
+    width: 3rem;
+    border-radius: 50%;
+}
+
+.post .author .name {
+    position: relative;
+    float: left;
+    font-size: 1rem;
+    font-weight: 500;
+    padding-left: 1rem;
+}
+
+.post .meta {
+    float: left;
+    padding-left: 1rem;
+    size: .6rem;
+    color: #000;
+}
+
+.post .caption .text {
+    margin: .5rem 0;
+}
+
+.post .category {
+    visibility: hidden;
+}
+    
+
+
+.post .content {
+    float: left;
+    padding: 0;
+}
+
+.post .content .img {
+    height: 100%;
+}
+
+.post .category {
+    visibility: visible;
+}
+}

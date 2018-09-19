@@ -1,5 +1,25 @@
 {% extends 'admin/master.html' %}
 
 {% block body %}
-<p>Hey there everyone.Let's try something simple here,right?..</p>
+<div class="demo-title">
+    <h1 class="display-1">Admins teritory</h1>
+    <p>by <a href="#">@Admin {{username}}</a></p>
+</div>
+
+<div class="post" id="post1">
+    <div class="caption">
+        <div class="author">
+            <img src="https://randomuser.me/api/portraits/men/73.jpg" alt="" class="avatar">
+            <div class="name"><a>@Admin{{ username}} </a></div><br />
+            <div class="meta"><i class="far fa-calendar-alt"></i> 2 min - <i class="fas fa-globe"></i> puplic</div>
+        </div>
+        <div class="text">
+            <p>Welcome to your admins page </p>
+            <p>For any isues the admin is responsible play safe</p>
+        </div>
+    <div class="category">post category</div>
+    <div class="content">
+        <img src="https://cdn.stocksnap.io/img-thumbs/960w/VZBJUVPO25.jpg" class="img" alt="">
+    </div>
+</div>
 {% endblock %}
